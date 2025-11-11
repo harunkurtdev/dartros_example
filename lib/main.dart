@@ -54,7 +54,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ros.Subscriber<sensor_msgs.Image>? sub;
 
-  // İki ayrı stream: biri TensorFlow için, biri UI için
   final StreamController<img.Image> _tfImageStreamController =
       StreamController<img.Image>.broadcast();
   final StreamController<ui.Image> _uiImageStreamController =
@@ -133,10 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Text(
-            //   'Processed: $_processedFrames | Dropped: $_droppedFrames',
-            //   style: Theme.of(context).textTheme.bodyMedium,
-            // ),
             const SizedBox(height: 20),
             Joystick(
               listener: (details) {
@@ -153,31 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('Joystick moved: x=$x, y=$y');
               },
             ),
-            // Direkt ui.Image stream'i kullan (FutureBuilder yok!)
-            // StreamBuilder<ui.Image>(
-            //   stream: _uiImageStreamController.stream,
-            //   builder: (context, snapshot) {
-            //     if (!snapshot.hasData) {
-            //       return const SizedBox(
-            //         width: 640,
-            //         height: 480,
-            //         child: Center(
-            //           child: Text('Waiting for camera stream...'),
-            //         ),
-            //       );
-            //     }
-
-            //     return SizedBox(
-            //       width: 640,
-            //       height: 480,
-            //       child: RawImage(
-            //         image: snapshot.data,
-            //         fit: BoxFit.contain,
-            //         filterQuality: FilterQuality.low,
-            //       ),
-            //     );
-            //   },
-            // ),
+           
             const SizedBox(height: 20),
           ],
         ),
